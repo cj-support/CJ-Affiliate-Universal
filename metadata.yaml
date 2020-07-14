@@ -2,7 +2,7 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
-  - sha: 5f02a788b90ae804f86b04aa24af8937e567874c
+  - sha: 6074d11e74ff272bb211a57b9e58618271490b10
     changeNotes: |2
       Update made to Template Field name from "Tag ID" to "Action Tracker ID"
   # Older versions
