@@ -117,8 +117,7 @@ ___TEMPLATE_PARAMETERS___
     },
     "name": "currency",
     "type": "TEXT",
-    "help": "Identifies the currency used to determine the Amount value for each item involved in the action. This three-letter code is static and can be hard-coded into the URL call for the image. If a code is not specified, product prices display in the advertiser’s functional currency.",
-    "valueHint": "USD"
+    "help": "Identifies the currency used to determine the Amount value for each item involved in the action. This three-letter code is static and can be hard-coded into the URL call for the image. If a code is not specified, product prices display in the advertiser’s functional currency."
   },
   {
     "displayName": {
