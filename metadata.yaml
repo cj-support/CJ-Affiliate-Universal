@@ -2,10 +2,16 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
-  - sha: 19e26abd9ba0e0ef564be9f904a26aa8a5f6619b
-    changeNotes: Add subTotal field as a standard field and added code to read and pass "cj" cookie value.
+  - sha: 8b29608fc0889549be927372cf27182bbf8c2939
+    changeNotes: Removed place holder help text from currency input.
   # Older versions
+  - sha: 19e26abd9ba0e0ef564be9f904a26aa8a5f6619b
+    changeNotes: |2
+      Added subTotal field as a standard field.
+      Added code to read and pass "cje" cookie value.
   - sha: 46d2d6c3eaede07db8e840312e5c36964eb7e895
-    changeNotes: Updated Logo and Template Field name from "Tag ID" to "Action Tracker ID"
+    changeNotes: |2
+      Updated Logo.
+      Updated Template Field name from "Tag ID" to "Action Tracker ID".
   - sha: b6a8e063f9e4ec99c03c43b2704664b9a7e45938
     changeNotes: Initial release.
