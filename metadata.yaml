@@ -2,9 +2,13 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
+  - sha: fad00bc3a4ab335506daff84bfb76f19f45da9e3
+    changeNotes: |2
+      Updated UI for Advanced Tracking options.
+      Added logic for reading server side cookie.
+  # Older versions
   - sha: 8b29608fc0889549be927372cf27182bbf8c2939
     changeNotes: Removed place holder help text from currency input.
-  # Older versions
   - sha: 19e26abd9ba0e0ef564be9f904a26aa8a5f6619b
     changeNotes: |2
       Added subTotal field as a standard field.
