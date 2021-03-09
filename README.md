@@ -1,9 +1,6 @@
 # CJ Affiliate Universal Tag
 CJ Affiliate Universal Tag Template for GTM.
 
-# CJ Affiliate Universal Tag
-CJ Affiliate Universal Tag Template for GTM.
-
 ## Overview
 
 <ol>
