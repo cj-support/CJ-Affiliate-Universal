@@ -49,15 +49,18 @@ Order Data Specific Trigger
 </ol>
 </ol>
 
-## Create Custom HTML Tag
+## Create a Custom HTML Tag
+
+<ul>
 
 ![GTM_UniversalTag_customHTML](https://user-images.githubusercontent.com/55509975/110536547-70dfbd80-80d6-11eb-9949-7b75bb37a890.PNG)
 
-Advanced Settings need to be updated to fire the Custom HTML Tag after the Universal Tag.
 
-![GTM_UniversalTag_AdvancedSettings](https://user-images.githubusercontent.com/55509975/110534715-412fb600-80d4-11eb-8ec3-28abbe4dccf7.PNG)
+Advanced Settings need to be updated to fire the Universal Tag before the Custom HTML Tag.
 
 
+![GTM_UniversalTag_AdvancedSettings](https://user-images.githubusercontent.com/55509975/110550720-071cdf00-80e9-11eb-9134-ca8647d59870.PNG)
+</ul>
 
 
 ## Creating Variables
@@ -150,10 +153,3 @@ Use this section to add any additional name=value pairs needed to be tracked. Th
 <b>Example Universal Tag Template Addtional Parameters Settings</b>
 
 ![GTM_UniversalTag_AdditionalParameters](https://user-images.githubusercontent.com/55509975/110533462-df228100-80d2-11eb-97f7-9d1566d22f8a.PNG)
-
-
-
-
-
-
-
