@@ -101,7 +101,7 @@ window.dataLayer.push({
 </script>
 ```
 #### Standard Tracking Variables
-1. Create a Data Layer Variable for CJ required (i.e. AMOUNT, ORDERID) and optional values (i.e. COUPON, DISCOUNT) that will need to be dynamic. The Data Layer Variable Name must match what is being passed in the Data Layer on the final confirmation page.
+Create a Data Layer Variable for CJ required (i.e. AMOUNT, ORDERID) and optional values (i.e. COUPON, DISCOUNT) that will need to be dynamic. The Data Layer Variable Name must match what is being passed in the Data Layer on the final confirmation page.
 
 <b>Example Data Layer Variable for AMOUNT</b>
 
