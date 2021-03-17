@@ -2,7 +2,7 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
-  - sha: 465f7a89c24de5ded88d5c557b3f657f15da11a1
+  - sha: a4796986ba2f3f8dd385fd87f16c95d5c74557a2
     changeNotes: |2
       Page and Order data Toggle.
       Additional Parameter Selection Support.
