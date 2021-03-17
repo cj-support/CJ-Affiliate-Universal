@@ -9,7 +9,7 @@ Google may provide), as modified from time to time.
 ___INFO___
 
 {
-  "displayName": "CJ Affiliate - Universal Tag (Dev)",
+  "displayName": "CJ Affiliate - Universal Tag",
   "description": "The purpose of this tag is to inform CJ Affiliate of user activity across the site allowing for tracking of transaction or lead information.",
   "securityGroups": [],
   "id": "ac",
