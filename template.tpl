@@ -844,6 +844,7 @@ if(inputArray != null) {
       var originQuantity = element[quantityKey];
       product.quantity = makeInteger(originQuantity); // convert quantity value to integer
       product.discount = element[discountKey];
+      if (product.discount == undefined){product.discount='0';}
       items.push(product);
 }}
 
