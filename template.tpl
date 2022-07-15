@@ -443,7 +443,7 @@ ___TEMPLATE_PARAMETERS___
             "displayValue": "Cruise Type"
           },
           {
-            "value": "cust_country",
+            "value": "customerCountry",
             "displayValue": "Customer Country"
           },
           {
@@ -451,7 +451,7 @@ ___TEMPLATE_PARAMETERS___
             "displayValue": "Customer Segment"
           },
           {
-            "value": "cust_status",
+            "value": "customerStatus",
             "displayValue": "Customer Status"
           },
           {
@@ -805,7 +805,7 @@ if (queryPermission('get_cookies', cookieName)) {
 const onSuccess = () => {
   log('CJ: Script loaded successfully.');
   data.gtmOnSuccess();
-  
+
 };
 const onFailure = () => {
   log('CJ: Script load failed.');
@@ -820,7 +820,7 @@ const getType = require('getType');
 var inputArray = data.productArray;
 var productKey = data.productSku;
 var priceKey = data.productPrice;
-var quantityKey = data.productQuantity; 
+var quantityKey = data.productQuantity;
 var discountKey = data.productDiscount;
 
 // capture standard values from template fields
@@ -861,9 +861,9 @@ var cjData = {
           	'enterpriseId' : companyID,
         	'orderId' : orderID,
             'cjeventOrder' : cje,
-        	'actionTrackerId' : actionID, 
-        	'currency' : currency,  
-        	'amount' : orderSubTotal,     
+        	'actionTrackerId' : actionID,
+        	'currency' : currency,
+        	'amount' : orderSubTotal,
         	'discount' : wholeOrderDiscount,
         	'coupon' : coupon,
             'pointOfSale' : 'web',
@@ -878,7 +878,7 @@ if (data.dataTypeSelect == 'pageData'){
 var cjData = {
         sitePage:{
           	'enterpriseId' : companyID,
-        	'cartSubtotal' : orderSubTotal,     
+        	'cartSubtotal' : orderSubTotal,
             'trackingSource' : 'gtm',
             'pageType' : page,
             '' : customParameterMap,
@@ -1240,5 +1240,3 @@ setup: ''
 ___NOTES___
 
 Created on 2/4/2020, 3:07:28 PM
-
-
