@@ -2,9 +2,11 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
+  - sha: 9877e0be614527cb32d5bf3b84060759ac16a2ec
+    changeNotes: referringChannel parameter added for cross channel journey tracking.
+  # Older versions
   - sha: 715dfd5aa63d764c332ca82f6cc466b11762302a
     changeNotes: code change to support empty item level discount field.
-  # Older versions
   - sha: 523ae0a5ce34c300cdebd0c3e6e226e33c479deb
     changeNotes: |2
       Additional Parameter Field Name list updated.
