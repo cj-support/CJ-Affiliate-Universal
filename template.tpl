@@ -324,7 +324,7 @@ ___TEMPLATE_PARAMETERS___
         "help": ""
       }
     ],
-    "help": "This section must be completed if you desire to track item-level information for a purchase or lead. This method allows for product-level reporting and item-level commissioning."
+    "help": "This section must be completed if you desire to enable cross journey tracking."
   },
   {
     "type": "LABEL",
