@@ -2,7 +2,7 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
-  - sha: 9877e0be614527cb32d5bf3b84060759ac16a2ec
+  - sha: 6d3be2f6acc0dcd77c4804e545303322ed25dd2a
     changeNotes: referringChannel parameter added for cross channel journey tracking.
   # Older versions
   - sha: 715dfd5aa63d764c332ca82f6cc466b11762302a
