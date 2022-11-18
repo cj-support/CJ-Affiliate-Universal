@@ -2,9 +2,11 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
+  - sha: 7a075b3985e9275a11154edf365a44d67ae76a97
+    changeNotes: product array format update to support UT conversion to API call.
+  # Older versions
   - sha: 6d3be2f6acc0dcd77c4804e545303322ed25dd2a
     changeNotes: referringChannel parameter added for cross channel journey tracking.
-  # Older versions
   - sha: 715dfd5aa63d764c332ca82f6cc466b11762302a
     changeNotes: code change to support empty item level discount field.
   - sha: 523ae0a5ce34c300cdebd0c3e6e226e33c479deb
