@@ -920,6 +920,7 @@ var cjData = {
 
 }
 setInWindow("cj", cjData, true);
+data.gtmOnSuccess();
 
 
 ___WEB_PERMISSIONS___
