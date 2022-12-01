@@ -2,9 +2,11 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
+  - sha: fd5d6513bb3594140e83a4b1ef82a0809ba784da
+    changeNotes: onSuccess function initiated at end of code to ensure GTM marks tag as succeeded.
+  # Older versions
   - sha: 7a075b3985e9275a11154edf365a44d67ae76a97
     changeNotes: product array format update to support UT conversion to API call.
-  # Older versions
   - sha: 6d3be2f6acc0dcd77c4804e545303322ed25dd2a
     changeNotes: referringChannel parameter added for cross channel journey tracking.
   - sha: 715dfd5aa63d764c332ca82f6cc466b11762302a
