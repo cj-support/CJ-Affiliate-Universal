@@ -2,7 +2,7 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
-  - sha: d971d6c417f507e8c1fc45e62a6ce7a8236ae916
+  - sha: 2c34831d4656a0e9c613fe3fa3b17e8a3befc4cd
     changeNotes: |2
       replaced custom parameter parsing with updated code to support UT conversion to API call.
       version 2.0.
