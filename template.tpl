@@ -300,7 +300,14 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "LABEL",
         "name": "Cross Journey Tracking",
-        "displayName": "\u003cb\u003eCross Journey Tracking\u003c/b\u003e"
+        "displayName": "\u003cb\u003eCross Journey Tracking\u003c/b\u003e",
+        "enablingConditions": [
+          {
+            "paramName": "dataTypeSelect",
+            "paramValue": "pageData",
+            "type": "EQUALS"
+          }
+        ]
       },
       {
         "type": "CHECKBOX",
@@ -330,7 +337,14 @@ ___TEMPLATE_PARAMETERS___
             "help": ""
           }
         ],
-        "help": "This section must be completed if you desire to enable cross journey tracking."
+        "help": "This section must be completed if you desire to enable cross journey tracking.",
+        "enablingConditions": [
+          {
+            "paramName": "dataTypeSelect",
+            "paramValue": "pageData",
+            "type": "EQUALS"
+          }
+        ]
       },
       {
         "type": "LABEL",
@@ -831,6 +845,9 @@ const encodeUriComponent = require('encodeUriComponent');
 const getCookieValues = require('getCookieValues');
 const makeInteger = require('makeInteger');
 
+//Version
+const templateVersion = '2.1';
+
 //Enables cookies to be read
 const cookieName = "cje";
 let cookieValues;
@@ -902,10 +919,9 @@ var cjData = {
         	'coupon' : coupon,
             'pointOfSale' : 'web',
             'trackingSource' : 'gtm',
-            'referringChannel' : referringChannel,
             'pageType' : 'conversionConfirmation',
             'items' : items,
-            'v': '2.0',
+            'v': templateVersion,
 }};
 
 //add user input custom parameters into the order object
@@ -923,9 +939,10 @@ var cjData = {
           	'enterpriseId' : companyID,
         	'cartSubtotal' : orderSubTotal,     
             'trackingSource' : 'gtm',
+            'referringChannel' : referringChannel,
             'pageType' : page,
             'items' : items,
-            'v': '2.0',
+            'v': templateVersion,
 
 }};
   
@@ -1286,12 +1303,86 @@ ___WEB_PERMISSIONS___
 
 ___TESTS___
 
-scenarios: []
-setup: ''
+scenarios:
+- name: orderData_items&discount&coupon
+  code: |
+    const mockData = {
+      dataTypeSelect: 'orderData',
+      companyID: 1234,
+      actionID: 4567,
+      currency: 'EUR',
+      orderSubTotal: 100,
+      coupon: 'sale10',
+      orderID: 'test123',
+      wholeOrderDiscount: 10,
+      productArray: [{sku: 'ABC123', quantity: 2, price: 50}],
+      productSku: 'sku',
+      productPrice: 'price',
+      productQuantity: 'quantity',
+      productDiscount: undefined,
+      customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}]
+    };
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new"}};
+
+    // Call runCode to run the template's code.
+    runCode(mockData);
+
+    assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
+    assertApi('gtmOnSuccess').wasCalled();
+- name: pageData_customerStatus-referringChannel
+  code: |
+    const mockData = {
+      dataTypeSelect: 'pageData',
+      companyID: 1234,
+      pageType: 'homepage',
+      referringChannel: 'affiliate',
+      customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}]
+    };
+    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":"affiliate","pageType":"homepage","items": undefined,"v":templateVersion,"customerStatus":"new"}};
+
+    // Call runCode to run the template's code.
+    runCode(mockData);
+
+    assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
+    assertApi('gtmOnSuccess').wasCalled();
+- name: pageData_customerStatus-no_referringChannel
+  code: |
+    const mockData = {
+      dataTypeSelect: 'pageData',
+      companyID: 1234,
+      pageType: 'homepage',
+      customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}]
+    };
+    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":undefined,"pageType":"homepage","items": undefined,"v":templateVersion,"customerStatus":"new"}};
+
+    // Call runCode to run the template's code.
+    runCode(mockData);
+
+    assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
+    assertApi('gtmOnSuccess').wasCalled();
+setup: |-
+  mock('queryPermission', true);
+  mock('getCookieValues', 'test');
+  const templateVersion = '2.1';
 
 
 ___NOTES___
 
 Created on 2/4/2020, 3:07:28 PM
 
+# Changelog
 
+## [v2.1] - 2023-05-22
+
+### Added
+
++ Basic tests for Order Data & Page Data option.
+
+### Changed
+
++ Display Cross Journey Tracking option only for Page Data.
+
+### Fixed
+
++ Add missing referringChannel for Page Data.
++ Remove redundant referringChannel for Order Data.
