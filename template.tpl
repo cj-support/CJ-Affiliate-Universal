@@ -829,6 +829,23 @@ ___TEMPLATE_PARAMETERS___
         ]
       },
       {
+        "type": "SELECT",
+        "name": "advertiserConsentAvailable",
+        "displayName": "Do you have consent from the customer to user client-side storage?",
+        "macrosInSelect": true,
+        "selectItems": [],
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "isCustomParameters",
+            "paramValue": true,
+            "type": "EQUALS"
+          }
+        ],
+        "notSetText": "",
+        "help": "Provide information about consent status at the time of conversion. Expected values: true / false."
+      },
+      {
         "type": "LABEL",
         "name": "Custom Click ID storage",
         "displayName": "\u003cb\u003eCustom Click ID storage\u003c/b\u003e",
@@ -887,7 +904,7 @@ const getCookieValues = require('getCookieValues');
 const makeInteger = require('makeInteger');
 
 //Version
-const templateVersion = '2.2';
+const templateVersion = '2.3';
 
 //Enables cookies to be read
 const cookieName = "cje";
@@ -955,7 +972,7 @@ var cjData = {
         order:{
           	'enterpriseId' : companyID,
         	'orderId' : orderID,
-          'cjeventOrder' : cje || customCjevent,
+            'cjeventOrder' : cje || customCjevent,
         	'actionTrackerId' : actionID, 
         	'currency' : currency,  
         	'amount' : orderSubTotal,     
@@ -966,19 +983,12 @@ var cjData = {
             'pageType' : 'conversionConfirmation',
             'items' : items,
             'v': templateVersion,
-}};
-
-//add user input custom parameters into the order object
-if(customParams != null){
-  customParams.forEach((param)=>{
-  cjData.order[param.customFieldName] = param.customFieldValue;
-  }
-);
-}}
+  }};
+}
 
 //Build Universal Tag Page Data
 if (data.dataTypeSelect == 'pageData'){
-var cjData = {
+  var cjData = {
         sitePage:{
           	'enterpriseId' : companyID,
         	'cartSubtotal' : orderSubTotal,     
@@ -987,16 +997,31 @@ var cjData = {
             'pageType' : page,
             'items' : items,
             'v': templateVersion,
+    }
+  };
+}
 
-}};
-  
-//add user input custom parameters into the sitePage object
+//Set key for cjData based on tag settings
+const dataTypeKey = data.dataTypeSelect == 'orderData'? 'order' : 'sitePage';
+
+//Add user input custom parameters
 if(customParams != null){
-  customParams.forEach((param)=>{
-  cjData.sitePage[param.customFieldName] = param.customFieldValue;
-  }
-);
-}}
+    customParams.forEach((param)=>{
+      if (cjData[dataTypeKey]){
+        cjData[dataTypeKey][param.customFieldName] = param.customFieldValue;
+      }
+    }
+  );
+}
+
+//Add consent info if available
+const consentOptions = {'yes':1,'no':0,'true':1,'false':0,'1':1,'0':0};
+const consentGiven = consentOptions[data.advertiserConsentAvailable];
+const consentInfoAvailable = [0, 1].indexOf(consentGiven) != -1;
+if (consentInfoAvailable && cjData[dataTypeKey]){
+  cjData[dataTypeKey]['cp.consentAvailable'] = consentGiven;
+}
+
 
 setInWindow("cj", cjData, true);
 // Call data.gtmOnSuccess when the tag is finished.
@@ -1431,10 +1456,77 @@ scenarios:
 
     assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
     assertApi('gtmOnSuccess').wasCalled();
+- name: orderData_advertiserConsentYesPassed
+  code: |
+    const mockData = {
+      dataTypeSelect: 'orderData',
+      companyID: 1234,
+      actionID: 4567,
+      currency: 'EUR',
+      orderSubTotal: 100,
+      coupon: 'sale10',
+      orderID: 'test123',
+      wholeOrderDiscount: 10,
+      productArray: [{sku: 'ABC123', quantity: 2, price: 50}],
+      productSku: 'sku',
+      productPrice: 'price',
+      productQuantity: 'quantity',
+      productDiscount: undefined,
+      customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
+      advertiserConsentAvailable: 'yes'
+    };
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new","cp.consentAvailable":1}};
+
+    // Call runCode to run the template's code.
+    runCode(mockData);
+
+    assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
+    assertApi('gtmOnSuccess').wasCalled();
+- name: orderData_advertiserConsentNoPassed
+  code: |
+    const mockData = {
+      dataTypeSelect: 'orderData',
+      companyID: 1234,
+      actionID: 4567,
+      currency: 'EUR',
+      orderSubTotal: 100,
+      coupon: 'sale10',
+      orderID: 'test123',
+      wholeOrderDiscount: 10,
+      productArray: [{sku: 'ABC123', quantity: 2, price: 50}],
+      productSku: 'sku',
+      productPrice: 'price',
+      productQuantity: 'quantity',
+      productDiscount: undefined,
+      customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
+      advertiserConsentAvailable: 'no'
+    };
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new","cp.consentAvailable":0}};
+
+    // Call runCode to run the template's code.
+    runCode(mockData);
+
+    assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
+    assertApi('gtmOnSuccess').wasCalled();
+- name: pageData_advertiserConsentNoPassed
+  code: |
+    const mockData = {
+      dataTypeSelect: 'pageData',
+      companyID: 1234,
+      customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
+      advertiserConsentAvailable: 'no'
+    };
+    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":undefined,"pageType":undefined,"items": undefined,"v":templateVersion,"customerStatus":"new","cp.consentAvailable":0}};
+
+    // Call runCode to run the template's code.
+    runCode(mockData);
+
+    assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
+    assertApi('gtmOnSuccess').wasCalled();
 setup: |-
   mock('queryPermission', true);
   mock('getCookieValues', 'test');
-  const templateVersion = '2.2';
+  const templateVersion = '2.3';
 
 
 ___NOTES___
@@ -1442,6 +1534,12 @@ ___NOTES___
 Created on 2/4/2020, 3:07:28 PM
 
 # Changelog
+
+## [v2.3] - 2023-06-06
+
+### Added
+
++ Option to pass advertiser consent status.
 
 ## [v2.2] - 2023-06-05
 
