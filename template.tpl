@@ -827,6 +827,47 @@ ___TEMPLATE_PARAMETERS___
             "type": "EQUALS"
           }
         ]
+      },
+      {
+        "type": "LABEL",
+        "name": "Custom Click ID storage",
+        "displayName": "\u003cb\u003eCustom Click ID storage\u003c/b\u003e",
+        "enablingConditions": [
+          {
+            "paramName": "dataTypeSelect",
+            "paramValue": "orderData",
+            "type": "EQUALS"
+          }
+        ]
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "customCjeventStorage",
+        "checkboxText": "I am storing CJ\u0027s click ID in custom variable",
+        "simpleValueType": true,
+        "help": "Use this option if you have CJ\u0027s click ID accessible, like in your dataLayer or in a cookie with a non-standard name.",
+        "enablingConditions": [
+          {
+            "paramName": "dataTypeSelect",
+            "paramValue": "orderData",
+            "type": "EQUALS"
+          }
+        ]
+      },
+      {
+        "type": "SELECT",
+        "name": "customCjeventValue",
+        "displayName": "Reference variable with CJ\u0027s click ID (cjevent).",
+        "macrosInSelect": true,
+        "selectItems": [],
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "customCjeventStorage",
+            "paramValue": true,
+            "type": "EQUALS"
+          }
+        ]
       }
     ]
   }
@@ -846,7 +887,7 @@ const getCookieValues = require('getCookieValues');
 const makeInteger = require('makeInteger');
 
 //Version
-const templateVersion = '2.1';
+const templateVersion = '2.2';
 
 //Enables cookies to be read
 const cookieName = "cje";
@@ -889,6 +930,9 @@ var orderSubTotal = data.orderSubTotal;
 var page = data.pageType;
 var referringChannel = data.referringChannel;
 
+// capture cjevent from custom storage
+var customCjevent = data.customCjeventValue;
+
 //create item array if Advanced data is input by user
 if(inputArray != null) {
   var items = [];
@@ -911,7 +955,7 @@ var cjData = {
         order:{
           	'enterpriseId' : companyID,
         	'orderId' : orderID,
-            'cjeventOrder' : cje,
+          'cjeventOrder' : cje || customCjevent,
         	'actionTrackerId' : actionID, 
         	'currency' : currency,  
         	'amount' : orderSubTotal,     
@@ -1360,10 +1404,37 @@ scenarios:
 
     assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
     assertApi('gtmOnSuccess').wasCalled();
+- name: orderData_cjeventPassedInVariable
+  code: |
+    mock('getCookieValues', []);
+    const mockData = {
+      dataTypeSelect: 'orderData',
+      companyID: 1234,
+      actionID: 4567,
+      currency: 'EUR',
+      orderSubTotal: 100,
+      coupon: 'sale10',
+      orderID: 'test123',
+      wholeOrderDiscount: 10,
+      productArray: [{sku: 'ABC123', quantity: 2, price: 50}],
+      productSku: 'sku',
+      productPrice: 'price',
+      productQuantity: 'quantity',
+      productDiscount: undefined,
+      customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
+      customCjeventValue: 'clickIdPassedInVariable'
+    };
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"clickIdPassedInVariable","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new"}};
+
+    // Call runCode to run the template's code.
+    runCode(mockData);
+
+    assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
+    assertApi('gtmOnSuccess').wasCalled();
 setup: |-
   mock('queryPermission', true);
   mock('getCookieValues', 'test');
-  const templateVersion = '2.1';
+  const templateVersion = '2.2';
 
 
 ___NOTES___
@@ -1372,17 +1443,18 @@ Created on 2/4/2020, 3:07:28 PM
 
 # Changelog
 
+## [v2.2] - 2023-06-05
+
+### Added
+
++ Option to pass cjevent in a variable into the tag, if cje cookie not available.
+
 ## [v2.1] - 2023-05-22
 
 ### Added
 
 + Basic tests for Order Data & Page Data option.
 
-### Changed
-
-+ Display Cross Journey Tracking option only for Page Data.
-
 ### Fixed
 
-+ Add missing referringChannel for Page Data.
-+ Remove redundant referringChannel for Order Data.
++ Missing referringChannel for Page Data.
