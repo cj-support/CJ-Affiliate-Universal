@@ -370,15 +370,15 @@ ___TEMPLATE_PARAMETERS___
             "type": "SELECT",
             "selectItems": [
               {
-                "value": "ancillary_spend",
+                "value": "ancillarySpend",
                 "displayValue": "Ancillary Spend"
               },
               {
-                "value": "annual_fee",
+                "value": "annualFee",
                 "displayValue": "Annual Fee"
               },
               {
-                "value": "app_status",
+                "value": "appStatus",
                 "displayValue": "Application Status"
               },
               {
@@ -386,27 +386,27 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "APR"
               },
               {
-                "value": "apr_transfer",
+                "value": "aprTransfer",
                 "displayValue": "APR Transfer"
               },
               {
-                "value": "apr_transfer_time",
+                "value": "aprTransferTime",
                 "displayValue": "APR Transfer Time"
               },
               {
-                "value": "booking_date",
+                "value": "bookingDate",
                 "displayValue": "Booking Date"
               },
               {
-                "value": "booking_status",
+                "value": "bookingStatus",
                 "displayValue": "Booking Status"
               },
               {
-                "value": "booking_value_post_tax",
+                "value": "bookingValuePostTax",
                 "displayValue": "Booking Value Post Tax"
               },
               {
-                "value": "booking_value_pre_tax",
+                "value": "bookingValuePreTax",
                 "displayValue": "Booking Value Pre Tax"
               },
               {
@@ -414,11 +414,11 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Brand"
               },
               {
-                "value": "brand_id",
+                "value": "brandId",
                 "displayValue": "Brand Identifier"
               },
               {
-                "value": "bus_unit",
+                "value": "busUnit",
                 "displayValue": "Business Unit"
               },
               {
@@ -430,23 +430,23 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Channel Time Stamp"
               },
               {
-                "value": "camp_id",
+                "value": "campaignId",
                 "displayValue": "Campaign Identifier"
               },
               {
-                "value": "camp_name",
+                "value": "campaignName",
                 "displayValue": "Campaign Name"
               },
               {
-                "value": "car_options",
+                "value": "carOptions",
                 "displayValue": "Car Options"
               },
               {
-                "value": "card_category",
+                "value": "cardCategory",
                 "displayValue": "Card Category"
               },
               {
-                "value": "cash_advance_fee",
+                "value": "cashAdvanceFee",
                 "displayValue": "Cash Advance Fee"
               },
               {
@@ -458,55 +458,55 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Class"
               },
               {
-                "value": "confirmation_number",
+                "value": "confirmationNumber",
                 "displayValue": "Confirmation Number"
               },
               {
-                "value": "contract_length",
+                "value": "contractLength",
                 "displayValue": "Contract Length"
               },
               {
-                "value": "contract_type",
+                "value": "contractType",
                 "displayValue": "Contract Type"
               },
               {
-                "value": "coupon_discount",
+                "value": "couponDiscount",
                 "displayValue": "Coupon Discount"
               },
               {
-                "value": "coupon_type",
+                "value": "couponType",
                 "displayValue": "Coupon Type"
               },
               {
-                "value": "cr_report",
+                "value": "creditReport",
                 "displayValue": "Customer Received Report"
               },
               {
-                "value": "credit_line",
+                "value": "creditLine",
                 "displayValue": "Credit Line"
               },
               {
-                "value": "credit_quality",
+                "value": "creditQuality",
                 "displayValue": "Credit Quality"
               },
               {
-                "value": "cruise_type",
+                "value": "cruiseType",
                 "displayValue": "Cruise Type"
               },
               {
-                "value": "cust_country",
+                "value": "customerCountry",
                 "displayValue": "Customer Country"
               },
               {
-                "value": "cust_segment",
+                "value": "customerSegment",
                 "displayValue": "Customer Segment"
               },
               {
-                "value": "cust_status",
+                "value": "customerStatus",
                 "displayValue": "Customer Status"
               },
               {
-                "value": "cust_type",
+                "value": "customerType",
                 "displayValue": "Customer Type"
               },
               {
@@ -518,15 +518,15 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Description"
               },
               {
-                "value": "dest_city",
+                "value": "destinationCity",
                 "displayValue": "Destination City"
               },
               {
-                "value": "dest_country",
+                "value": "destinationCountry",
                 "displayValue": "Destination Country"
               },
               {
-                "value": "dest_state",
+                "value": "destinationState",
                 "displayValue": "Destination State"
               },
               {
@@ -534,11 +534,11 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Domestic"
               },
               {
-                "value": "dropoff_iata",
+                "value": "dropoffIata",
                 "displayValue": "Destination Location (iata)"
               },
               {
-                "value": "dropoff_id",
+                "value": "dropoffId",
                 "displayValue": "Destination Location ID"
               },
               {
@@ -550,31 +550,31 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Email Hash"
               },
               {
-                "value": "end_date_time",
+                "value": "endDateTime",
                 "displayValue": "End Date Time"
               },
               {
-                "value": "flight_fare_type",
+                "value": "flightFareType",
                 "displayValue": "Flight Fare Type"
               },
               {
-                "value": "flight_options",
+                "value": "flightOptions",
                 "displayValue": "Flight Options"
               },
               {
-                "value": "flight_type",
+                "value": "flightType",
                 "displayValue": "Flight Type"
               },
               {
-                "value": "flyer_miles",
+                "value": "flyerMiles",
                 "displayValue": "Flyer Miles"
               },
               {
-                "value": "funded_amount",
+                "value": "fundedAmount",
                 "displayValue": "Funded Amount"
               },
               {
-                "value": "funded_currency",
+                "value": "fundedCurrency",
                 "displayValue": "Funded Currency"
               },
               {
@@ -590,11 +590,11 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "IATA Code"
               },
               {
-                "value": "intro_apr",
+                "value": "introductoryApr",
                 "displayValue": "Introductory APR"
               },
               {
-                "value": "intro_apr_time",
+                "value": "introductoryAprTime",
                 "displayValue": "Introductory APR Time"
               },
               {
@@ -606,7 +606,7 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Item Type"
               },
               {
-                "value": "itinerary_id",
+                "value": "itineraryId",
                 "displayValue": "Itinerary Id"
               },
               {
@@ -618,23 +618,23 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Location"
               },
               {
-                "value": "loyalty_first_time_signup",
+                "value": "loyaltyFirstTimeSignup",
                 "displayValue": "Loyalty First Time Signup"
               },
               {
-                "value": "loyalty_earned",
+                "value": "loyaltyEarned",
                 "displayValue": "Loyalty Earned"
               },
               {
-                "value": "loyalty_level",
+                "value": "loyaltyLevel",
                 "displayValue": "Loyalty Level"
               },
               {
-                "value": "loyalty_redeemed",
+                "value": "loyaltyRedeemed",
                 "displayValue": "Loyalty Redeemed"
               },
               {
-                "value": "loyalty_status",
+                "value": "loyaltyStatus",
                 "displayValue": "Loyalty Status"
               },
               {
@@ -642,67 +642,67 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Margin"
               },
               {
-                "value": "marketing_channel",
+                "value": "marketingChannel",
                 "displayValue": "Marketing Channel"
               },
               {
-                "value": "min_bal",
+                "value": "minimumBalance",
                 "displayValue": "Minimum Balance"
               },
               {
-                "value": "min_deposit",
+                "value": "minimumDeposit",
                 "displayValue": "Minimum Deposit"
               },
               {
-                "value": "min_stay_duration",
+                "value": "minimumStayDuration",
                 "displayValue": "Minimum Stay Duration"
               },
               {
-                "value": "no_cancellation",
+                "value": "noCancellation",
                 "displayValue": "No Cancellation"
               },
               {
-                "value": "or_city",
+                "value": "originCity",
                 "displayValue": "Origin City"
               },
               {
-                "value": "or_country",
+                "value": "originCountry",
                 "displayValue": "Origin Country"
               },
               {
-                "value": "pickup_iata",
+                "value": "pickupIata",
                 "displayValue": "Origin Location (IATA)"
               },
               {
-                "value": "pickup_id",
+                "value": "pickupId",
                 "displayValue": "Origin Location ID"
               },
               {
-                "value": "or_state",
+                "value": "originState",
                 "displayValue": "Origin State"
               },
               {
-                "value": "order_subtotal",
+                "value": "orderSubtotal",
                 "displayValue": "Order Subtotal"
               },
               {
-                "value": "paid_at_booking_post_tax",
+                "value": "paidAtBookingPostTax",
                 "displayValue": "Paid At Booking Post Tax"
               },
               {
-                "value": "paid_at_booking_pre_tax",
+                "value": "paidAtBookingPreTax",
                 "displayValue": "Paid At Booking Pre Tax"
               },
               {
-                "value": "payment_method",
+                "value": "paymentMethod",
                 "displayValue": "Payment Method"
               },
               {
-                "value": "payment_model",
+                "value": "paymentModel",
                 "displayValue": "Payment Model"
               },
               {
-                "value": "platform_id",
+                "value": "platformId",
                 "displayValue": "Platform ID"
               },
               {
@@ -710,7 +710,7 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Port"
               },
               {
-                "value": "pre_qual",
+                "value": "prequalify",
                 "displayValue": "Pre-Qualification"
               },
               {
@@ -726,27 +726,27 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Promotion"
               },
               {
-                "value": "promotion_amt",
+                "value": "promotionAmount",
                 "displayValue": "Promotion Amount"
               },
               {
-                "value": "promotion_conditionThreshold",
+                "value": "promotionConditionThreshold",
                 "displayValue": "Promotion Threshold"
               },
               {
-                "value": "promotion_conditionType",
+                "value": "promotionConditionType",
                 "displayValue": "Promotion Condition"
               },
               {
-                "value": "promotion_ends",
+                "value": "promotionEnds",
                 "displayValue": "Promotion Ends"
               },
               {
-                "value": "promotion_starts",
+                "value": "promotionStarts",
                 "displayValue": "Promotion Starts"
               },
               {
-                "value": "promotion_type",
+                "value": "promotionType",
                 "displayValue": "Promotion Type"
               },
               {
@@ -754,7 +754,7 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Rating"
               },
               {
-                "value": "room_type",
+                "value": "roomType",
                 "displayValue": "Room Type"
               },
               {
@@ -762,39 +762,39 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Rooms"
               },
               {
-                "value": "service_type",
+                "value": "serviceType",
                 "displayValue": "Service Type"
               },
               {
-                "value": "ship_name",
+                "value": "shipName",
                 "displayValue": "Ship Name"
               },
               {
-                "value": "start_date_time",
+                "value": "startDateTime",
                 "displayValue": "Start Date Time"
               },
               {
-                "value": "sub_fee",
+                "value": "subscriptionFee",
                 "displayValue": "Subscription Fee"
               },
               {
-                "value": "sub_length",
+                "value": "subscriptionLength",
                 "displayValue": "Subscription Length"
               },
               {
-                "value": "tax_amount",
+                "value": "taxAmount",
                 "displayValue": "Tax Amount"
               },
               {
-                "value": "tax_type",
+                "value": "taxType",
                 "displayValue": "Tax Type"
               },
               {
-                "value": "transfer_fee",
+                "value": "transferFee",
                 "displayValue": "Transfer Fee"
               },
               {
-                "value": "travel_type",
+                "value": "travelType",
                 "displayValue": "Travel Type"
               },
               {
@@ -831,7 +831,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "SELECT",
         "name": "advertiserConsentAvailable",
-        "displayName": "Do you have consent from the customer to user client-side storage?",
+        "displayName": "Do you have consent from the customer to use client-side storage?",
         "macrosInSelect": true,
         "selectItems": [],
         "simpleValueType": true,
@@ -1534,6 +1534,12 @@ ___NOTES___
 Created on 2/4/2020, 3:07:28 PM
 
 # Changelog
+
+## [Unreleased]
+
+### Changed
+
++ Vertical paramerters from snake case to camel case.
 
 ## [v2.3] - 2023-06-06
 
