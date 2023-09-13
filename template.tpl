@@ -422,14 +422,6 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Business Unit"
               },
               {
-                "value": "channel",
-                "displayValue": "Channel"
-              },
-              {
-                "value": "channel_ts",
-                "displayValue": "Channel Time Stamp"
-              },
-              {
                 "value": "campaignId",
                 "displayValue": "Campaign Identifier"
               },
@@ -804,6 +796,10 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "userId",
                 "displayValue": "User Id"
+              },
+              {
+                "value": "countryCode",
+                "displayValue": "Country Code"
               }
             ],
             "valueValidators": [
@@ -829,58 +825,154 @@ ___TEMPLATE_PARAMETERS___
         ]
       },
       {
-        "type": "SELECT",
-        "name": "advertiserConsentAvailable",
-        "displayName": "Do you have consent from the customer to use client-side storage?",
-        "macrosInSelect": true,
-        "selectItems": [],
-        "simpleValueType": true,
+        "type": "GROUP",
+        "name": "otherCustomParameters",
+        "displayName": "",
+        "groupStyle": "NO_ZIPPY",
+        "subParams": [
+          {
+            "type": "GROUP",
+            "name": "bypassChannelSettings",
+            "displayName": "Bypass Channel",
+            "groupStyle": "ZIPPY_CLOSED",
+            "subParams": [
+              {
+                "type": "LABEL",
+                "name": "bypassChannelWarning",
+                "displayName": "\u003cb\u003eWARNING\u003c/b\u003e:\u003cbr\u003eYou should include bypass channel parameters only if explicitly instructed to by CJ\u0027s Client Integration Engineer (CIE)."
+              },
+              {
+                "type": "LABEL",
+                "name": "bypassChannelWarningLine2",
+                "displayName": "This is \u003cb\u003eNOT\u003c/b\u003e the same as the referringChannel settings usef or Cross Journey Reporting.\u003cbr\u003e\u003cbr\u003e"
+              },
+              {
+                "type": "CHECKBOX",
+                "name": "instructedToPassBypassChannel",
+                "checkboxText": "I was instructed to add Bypass Channel parameters by CJ\u0027s CIE.",
+                "simpleValueType": true
+              },
+              {
+                "type": "SELECT",
+                "name": "channelName",
+                "displayName": "Name",
+                "macrosInSelect": true,
+                "selectItems": [],
+                "simpleValueType": true,
+                "help": "Use one of the values provided by CJ\u0027s CIE. The parameter name and values are not case sensitive. If \u0027direct\u0027 is not included as a \u0027name\u0027 value, the program is not eligible for cross-device tracking.\u003cbr\u003e\u003cbr\u003eThis is \u003cb\u003eNOT\u003c/b\u003e the same as the referringChannel name used for Cross Journey reporting.",
+                "enablingConditions": [
+                  {
+                    "paramName": "instructedToPassBypassChannel",
+                    "paramValue": true,
+                    "type": "EQUALS"
+                  }
+                ]
+              },
+              {
+                "type": "SELECT",
+                "name": "channelTimestamp",
+                "displayName": "Timestamp",
+                "macrosInSelect": true,
+                "selectItems": [],
+                "simpleValueType": true,
+                "enablingConditions": [
+                  {
+                    "paramName": "instructedToPassBypassChannel",
+                    "paramValue": true,
+                    "type": "EQUALS"
+                  }
+                ],
+                "help": "This parameter is where you pass the date/time stamp for the last click that they are attributing the transaction to. You must use this format:"
+              }
+            ],
+            "enablingConditions": [
+              {
+                "paramName": "dataTypeSelect",
+                "paramValue": "orderData",
+                "type": "EQUALS"
+              }
+            ]
+          },
+          {
+            "type": "GROUP",
+            "name": "customConsentSettings",
+            "displayName": "Consent Settings",
+            "groupStyle": "ZIPPY_CLOSED",
+            "subParams": [
+              {
+                "type": "SELECT",
+                "name": "advertiserConsentAvailable",
+                "displayName": "Do you have consent from the customer to use client-side storage?",
+                "macrosInSelect": true,
+                "selectItems": [],
+                "simpleValueType": true,
+                "enablingConditions": [
+                  {
+                    "paramName": "isCustomParameters",
+                    "paramValue": true,
+                    "type": "EQUALS"
+                  }
+                ],
+                "notSetText": "",
+                "help": "Provide information about consent status at the time of conversion. Expected values: true / false."
+              }
+            ],
+            "enablingConditions": [
+              {
+                "paramName": "dataTypeSelect",
+                "paramValue": "orderData",
+                "type": "EQUALS"
+              }
+            ]
+          },
+          {
+            "type": "GROUP",
+            "name": "customClickIdStorage",
+            "displayName": "Custom Click ID storage",
+            "groupStyle": "ZIPPY_CLOSED",
+            "subParams": [
+              {
+                "type": "CHECKBOX",
+                "name": "customCjeventStorage",
+                "checkboxText": "I am storing CJ\u0027s click ID in custom variable",
+                "simpleValueType": true,
+                "help": "Use this option if you have CJ\u0027s click ID accessible, like in your dataLayer or in a cookie with a non-standard name.",
+                "enablingConditions": [
+                  {
+                    "paramName": "dataTypeSelect",
+                    "paramValue": "orderData",
+                    "type": "EQUALS"
+                  }
+                ]
+              },
+              {
+                "type": "SELECT",
+                "name": "customCjeventValue",
+                "displayName": "Reference variable with CJ\u0027s click ID (cjevent).",
+                "macrosInSelect": true,
+                "selectItems": [],
+                "simpleValueType": true,
+                "enablingConditions": [
+                  {
+                    "paramName": "customCjeventStorage",
+                    "paramValue": true,
+                    "type": "EQUALS"
+                  }
+                ]
+              }
+            ],
+            "enablingConditions": [
+              {
+                "paramName": "dataTypeSelect",
+                "paramValue": "orderData",
+                "type": "EQUALS"
+              }
+            ]
+          }
+        ],
         "enablingConditions": [
           {
             "paramName": "isCustomParameters",
-            "paramValue": true,
-            "type": "EQUALS"
-          }
-        ],
-        "notSetText": "",
-        "help": "Provide information about consent status at the time of conversion. Expected values: true / false."
-      },
-      {
-        "type": "LABEL",
-        "name": "Custom Click ID storage",
-        "displayName": "\u003cb\u003eCustom Click ID storage\u003c/b\u003e",
-        "enablingConditions": [
-          {
-            "paramName": "dataTypeSelect",
-            "paramValue": "orderData",
-            "type": "EQUALS"
-          }
-        ]
-      },
-      {
-        "type": "CHECKBOX",
-        "name": "customCjeventStorage",
-        "checkboxText": "I am storing CJ\u0027s click ID in custom variable",
-        "simpleValueType": true,
-        "help": "Use this option if you have CJ\u0027s click ID accessible, like in your dataLayer or in a cookie with a non-standard name.",
-        "enablingConditions": [
-          {
-            "paramName": "dataTypeSelect",
-            "paramValue": "orderData",
-            "type": "EQUALS"
-          }
-        ]
-      },
-      {
-        "type": "SELECT",
-        "name": "customCjeventValue",
-        "displayName": "Reference variable with CJ\u0027s click ID (cjevent).",
-        "macrosInSelect": true,
-        "selectItems": [],
-        "simpleValueType": true,
-        "enablingConditions": [
-          {
-            "paramName": "customCjeventStorage",
             "paramValue": true,
             "type": "EQUALS"
           }
@@ -904,7 +996,7 @@ const getCookieValues = require('getCookieValues');
 const makeInteger = require('makeInteger');
 
 //Version
-const templateVersion = '2.3';
+const templateVersion = '2.4';
 
 //Enables cookies to be read
 const cookieName = "cje";
@@ -924,6 +1016,9 @@ const onFailure = () => {
   log('CJ: Script load failed.');
   data.gtmOnFailure();
 };
+
+//Set key for cjData based on tag settings
+const dataTypeKey = data.dataTypeSelect == 'orderData'? 'order' : 'sitePage';
 
 //Enables user specified Data Layer array and array objects to be Read.
 const callInWindow = require('callInWindow');
@@ -950,6 +1045,36 @@ var referringChannel = data.referringChannel;
 // capture cjevent from custom storage
 var customCjevent = data.customCjeventValue;
 
+function addBypassChannel(name, timestamp){
+  const channelName = name || '';
+  if (channelName.length > 0 && cjData.order){
+    cjData.order.bypassChannel = {
+      name: channelName,
+      timestamp: timestamp || ''
+    };
+  }
+
+}
+
+function addConsentForAdvertiser(isAvailable, dataTypeKey, consentKey){
+  const consentOptions = {'yes':1,'no':0,'true':1,'false':0,'1':1,'0':0};
+  const consentGiven = consentOptions[isAvailable];
+  const consentInfoAvailable = [0, 1].indexOf(consentGiven) != -1;
+  if (consentInfoAvailable && cjData[dataTypeKey]){
+    cjData[dataTypeKey][consentKey || 'cp.consentAvailable'] = consentGiven;
+  }
+}
+
+function addCustomParameters(customParams, dataTypeKey){
+   if(customParams != null){
+     customParams.forEach((param)=>{
+       if (cjData[dataTypeKey]){
+         cjData[dataTypeKey][param.customFieldName] = param.customFieldValue;
+       }
+    });
+  }
+}
+
 //create item array if Advanced data is input by user
 if(inputArray != null) {
   var items = [];
@@ -968,7 +1093,7 @@ if(inputArray != null) {
 //Build Universal Tag Order Data
 const customParams = data.customParameters;
 if (data.dataTypeSelect == 'orderData'){
-var cjData = {
+  var cjData = {
         order:{
           	'enterpriseId' : companyID,
         	'orderId' : orderID,
@@ -983,7 +1108,9 @@ var cjData = {
             'pageType' : 'conversionConfirmation',
             'items' : items,
             'v': templateVersion,
+            'source': { name: "gtm", version: templateVersion }
   }};
+  addBypassChannel(data.channelName, data.channelTimestamp);
 }
 
 //Build Universal Tag Page Data
@@ -997,34 +1124,15 @@ if (data.dataTypeSelect == 'pageData'){
             'pageType' : page,
             'items' : items,
             'v': templateVersion,
+            'source': { name: "gtm", version: templateVersion }
     }
   };
 }
 
-//Set key for cjData based on tag settings
-const dataTypeKey = data.dataTypeSelect == 'orderData'? 'order' : 'sitePage';
-
-//Add user input custom parameters
-if(customParams != null){
-    customParams.forEach((param)=>{
-      if (cjData[dataTypeKey]){
-        cjData[dataTypeKey][param.customFieldName] = param.customFieldValue;
-      }
-    }
-  );
-}
-
-//Add consent info if available
-const consentOptions = {'yes':1,'no':0,'true':1,'false':0,'1':1,'0':0};
-const consentGiven = consentOptions[data.advertiserConsentAvailable];
-const consentInfoAvailable = [0, 1].indexOf(consentGiven) != -1;
-if (consentInfoAvailable && cjData[dataTypeKey]){
-  cjData[dataTypeKey]['cp.consentAvailable'] = consentGiven;
-}
-
+addCustomParameters(customParams, dataTypeKey);
+addConsentForAdvertiser(data.advertiserConsentAvailable, dataTypeKey, 'cp.consentAvailable');
 
 setInWindow("cj", cjData, true);
-// Call data.gtmOnSuccess when the tag is finished.
 onSuccess();
 
 
@@ -1391,7 +1499,7 @@ scenarios:
       productDiscount: undefined,
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}]
     };
-    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new"}};
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new"}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1407,7 +1515,7 @@ scenarios:
       referringChannel: 'affiliate',
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}]
     };
-    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":"affiliate","pageType":"homepage","items": undefined,"v":templateVersion,"customerStatus":"new"}};
+    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":"affiliate","pageType":"homepage","items": undefined,"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new"}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1422,7 +1530,7 @@ scenarios:
       pageType: 'homepage',
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}]
     };
-    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":undefined,"pageType":"homepage","items": undefined,"v":templateVersion,"customerStatus":"new"}};
+    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":undefined,"pageType":"homepage","items": undefined,"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new"}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1449,7 +1557,7 @@ scenarios:
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
       customCjeventValue: 'clickIdPassedInVariable'
     };
-    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"clickIdPassedInVariable","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new"}};
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"clickIdPassedInVariable","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new"}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1475,7 +1583,7 @@ scenarios:
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
       advertiserConsentAvailable: 'yes'
     };
-    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new","cp.consentAvailable":1}};
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new","cp.consentAvailable":1}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1501,7 +1609,7 @@ scenarios:
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
       advertiserConsentAvailable: 'no'
     };
-    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new","cp.consentAvailable":0}};
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new","cp.consentAvailable":0}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1516,7 +1624,60 @@ scenarios:
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
       advertiserConsentAvailable: 'no'
     };
-    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":undefined,"pageType":undefined,"items": undefined,"v":templateVersion,"customerStatus":"new","cp.consentAvailable":0}};
+    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":undefined,"pageType":undefined,"items": undefined,"v":templateVersion,"customerStatus":"new","source":{"name":"gtm","version":templateVersion},"cp.consentAvailable":0}};
+
+    // Call runCode to run the template's code.
+    runCode(mockData);
+
+    assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
+    assertApi('gtmOnSuccess').wasCalled();
+- name: orderData_bypassChannelPassed
+  code: |
+    const mockData = {
+      dataTypeSelect: 'orderData',
+      companyID: 1234,
+      actionID: 4567,
+      currency: 'EUR',
+      orderSubTotal: 100,
+      coupon: 'sale10',
+      orderID: 'test123',
+      wholeOrderDiscount: 10,
+      productArray: [{sku: 'ABC123', quantity: 2, price: 50}],
+      productSku: 'sku',
+      productPrice: 'price',
+      productQuantity: 'quantity',
+      productDiscount: undefined,
+      customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
+      channelName: 'CJ',
+      channelTimestamp: '2022-12-31T12:18:14Z'
+    };
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new", "bypassChannel": {"name": "CJ", "timestamp": "2022-12-31T12:18:14Z"}}};
+
+    // Call runCode to run the template's code.
+    runCode(mockData);
+
+    assertApi('setInWindow').wasCalledWith('cj', expectedCjData, true);
+    assertApi('gtmOnSuccess').wasCalled();
+- name: orderData_bypassChannelWithoutTimestamp
+  code: |
+    const mockData = {
+      dataTypeSelect: 'orderData',
+      companyID: 1234,
+      actionID: 4567,
+      currency: 'EUR',
+      orderSubTotal: 100,
+      coupon: 'sale10',
+      orderID: 'test123',
+      wholeOrderDiscount: 10,
+      productArray: [{sku: 'ABC123', quantity: 2, price: 50}],
+      productSku: 'sku',
+      productPrice: 'price',
+      productQuantity: 'quantity',
+      productDiscount: undefined,
+      customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
+      channelName: 'CJ',
+    };
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new", "bypassChannel": {"name": "CJ", "timestamp": ""}}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1526,7 +1687,7 @@ scenarios:
 setup: |-
   mock('queryPermission', true);
   mock('getCookieValues', 'test');
-  const templateVersion = '2.3';
+  const templateVersion = '2.4';
 
 
 ___NOTES___
@@ -1535,11 +1696,19 @@ Created on 2/4/2020, 3:07:28 PM
 
 # Changelog
 
-## [Unreleased]
+## [v2.4] - 2023-09-13
+
+### Added
+
++ New source parameter with name and version.
++ countryCode parameter.
 
 ### Changed
 
 + Vertical paramerters from snake case to camel case.
++ Bypass Channel parameters added into separate settings group.
++ Related sections of code grouped into functions.
++ UI improvements for custom parameters.
 
 ## [v2.3] - 2023-06-06
 
