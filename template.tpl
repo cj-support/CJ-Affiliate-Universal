@@ -831,6 +831,10 @@ const encodeUriComponent = require('encodeUriComponent');
 const getCookieValues = require('getCookieValues');
 const makeInteger = require('makeInteger');
 
+//Version Tracking
+
+const templateVersion = "2.1";
+
 //Enables cookies to be read
 const cookieName = "cje";
 let cookieValues;
@@ -891,22 +895,29 @@ if(inputArray != null) {
 const customParams = data.customParameters;
 if (data.dataTypeSelect == 'orderData'){
 var cjData = {
-        order:{
-          	'enterpriseId' : companyID,
-        	'orderId' : orderID,
-            'cjeventOrder' : cje,
-        	'actionTrackerId' : actionID, 
-        	'currency' : currency,  
-        	'amount' : orderSubTotal,     
-        	'discount' : wholeOrderDiscount,
-        	'coupon' : coupon,
-            'pointOfSale' : 'web',
-            'trackingSource' : 'gtm',
-            'referringChannel' : referringChannel,
-            'pageType' : 'conversionConfirmation',
-            'items' : items,
-            'v': '2.0',
-}};
+
+      order:{
+        'enterpriseId' : companyID,
+        'orderId' : orderID,
+        'cjeventOrder' : cje,
+        'actionTrackerId' : actionID, 
+        'currency' : currency,  
+        'amount' : orderSubTotal,     
+        'discount' : wholeOrderDiscount,
+        'coupon' : coupon,
+        'pointOfSale' : 'web',
+        'trackingSource' : 'gtm',
+        'pageType' : 'conversionConfirmation',
+        'items' : items,
+        'v': templateVersion
+      },
+       //bring cj Source to top level as well
+     source: {
+      name: "gtm",
+      version: templateVersion
+      }
+
+};
 
 //add user input custom parameters into the order object
 if(customParams != null){
@@ -925,9 +936,15 @@ var cjData = {
             'trackingSource' : 'gtm',
             'pageType' : page,
             'items' : items,
-            'v': '2.0',
-
-}};
+            'referringChannel' : referringChannel,
+            'v': templateVersion
+        },
+       //bring cj Source to top level as well
+     source: {
+      name: "gtm",
+      version: templateVersion
+      }
+};
   
 //add user input custom parameters into the sitePage object
 if(customParams != null){
@@ -1293,5 +1310,3 @@ setup: ''
 ___NOTES___
 
 Created on 2/4/2020, 3:07:28 PM
-
-
