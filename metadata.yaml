@@ -3,9 +3,9 @@ documentation: "https://www.cj.com/"
 versions:
   # Latest version
   - sha: 805fe9b79f89e48ba56ec130b6e0bbbc5d00ba54
-  changeNotes: |2
-    moved reffering channel parameter to customer journey
-    updated version number and placement
+    changeNotes: |2
+      moved reffering channel parameter to customer journey
+      updated version number and placement
   # Older versions
   - sha: 2c34831d4656a0e9c613fe3fa3b17e8a3befc4cd
     changeNotes: |2
