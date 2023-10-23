@@ -81,7 +81,7 @@ ___TEMPLATE_PARAMETERS___
     "help": {
       "messageId": "actionID_HELP",
       "description": "Help for Action Id parameter.",
-      "text": "Parameter that displays the Action Tracker ID, a CJ-assigned number that identifies an action that has occurred. This value is provided by a CJ Affiliate CIE."
+      "text": "Parameters that displays the Action Tracker ID, a CJ-assigned number that identifies an action that has occurred. This value is provided by a CJ Affiliate CIE."
     },
     "valueValidators": [
       {

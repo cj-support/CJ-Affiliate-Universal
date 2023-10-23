@@ -2,7 +2,7 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
-  - sha: 805fe9b79f89e48ba56ec130b6e0bbbc5d00ba54
+  - sha: b66ceb8851089cce27c0924c8d9ee40c89eaf918
     changeNotes: |2
       moved reffering channel parameter to customer journey
       updated version number and placement
