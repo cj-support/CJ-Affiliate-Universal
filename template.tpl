@@ -996,7 +996,7 @@ const getCookieValues = require('getCookieValues');
 const makeInteger = require('makeInteger');
 
 //Version
-const templateVersion = '2.4';
+const templateVersion = '2.4-viv';
 
 //Enables cookies to be read
 const cookieName = "cje";
@@ -1095,21 +1095,25 @@ const customParams = data.customParameters;
 if (data.dataTypeSelect == 'orderData'){
   var cjData = {
         order:{
-          	'enterpriseId' : companyID,
-        	'orderId' : orderID,
-            'cjeventOrder' : cje || customCjevent,
-        	'actionTrackerId' : actionID, 
-        	'currency' : currency,  
-        	'amount' : orderSubTotal,     
-        	'discount' : wholeOrderDiscount,
-        	'coupon' : coupon,
-            'pointOfSale' : 'web',
-            'trackingSource' : 'gtm',
-            'pageType' : 'conversionConfirmation',
-            'items' : items,
-            'v': templateVersion,
-            'source': { name: "gtm", version: templateVersion }
-  }};
+          enterpriseId: companyID,
+          orderId: orderID,
+          cjeventOrder: cje || customCjevent,
+          actionTrackerId: actionID,
+          currency: currency,
+          amount: orderSubTotal,
+          discount: wholeOrderDiscount,
+          coupon: coupon,
+          pointOfSale: 'web',
+          trackingSource: 'gtm',
+          pageType: 'conversionConfirmation',
+          items: items,
+          v: templateVersion
+        },
+        source:{
+          name: 'gtm',
+          version: templateVersion
+        }
+  };
   addBypassChannel(data.channelName, data.channelTimestamp);
 }
 
@@ -1117,15 +1121,18 @@ if (data.dataTypeSelect == 'orderData'){
 if (data.dataTypeSelect == 'pageData'){
   var cjData = {
         sitePage:{
-          	'enterpriseId' : companyID,
-        	'cartSubtotal' : orderSubTotal,     
-            'trackingSource' : 'gtm',
-            'referringChannel' : referringChannel,
-            'pageType' : page,
-            'items' : items,
-            'v': templateVersion,
-            'source': { name: "gtm", version: templateVersion }
-    }
+          enterpriseId: companyID,
+          cartSubtotal: orderSubTotal,
+          trackingSource: 'gtm',
+          referringChannel: referringChannel,
+          pageType: page,
+          items: items,
+          v: templateVersion
+        },
+        source:{
+          name: 'gtm',
+          version: templateVersion
+        }
   };
 }
 
@@ -1499,7 +1506,7 @@ scenarios:
       productDiscount: undefined,
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}]
     };
-    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new"}};
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new"},"source":{"name":"gtm","version":templateVersion}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1515,7 +1522,7 @@ scenarios:
       referringChannel: 'affiliate',
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}]
     };
-    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":"affiliate","pageType":"homepage","items": undefined,"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new"}};
+    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":"affiliate","pageType":"homepage","items": undefined,"v":templateVersion,"customerStatus":"new"},"source":{"name":"gtm","version":templateVersion}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1530,7 +1537,7 @@ scenarios:
       pageType: 'homepage',
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}]
     };
-    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":undefined,"pageType":"homepage","items": undefined,"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new"}};
+    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":undefined,"pageType":"homepage","items": undefined,"v":templateVersion,"customerStatus":"new"},"source":{"name":"gtm","version":templateVersion}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1557,7 +1564,7 @@ scenarios:
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
       customCjeventValue: 'clickIdPassedInVariable'
     };
-    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"clickIdPassedInVariable","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new"}};
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"clickIdPassedInVariable","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new"},"source":{"name":"gtm","version":templateVersion}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1583,7 +1590,7 @@ scenarios:
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
       advertiserConsentAvailable: 'yes'
     };
-    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new","cp.consentAvailable":1}};
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new","cp.consentAvailable":1},"source":{"name":"gtm","version":templateVersion}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1609,7 +1616,7 @@ scenarios:
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
       advertiserConsentAvailable: 'no'
     };
-    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new","cp.consentAvailable":0}};
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new","cp.consentAvailable":0},"source":{"name":"gtm","version":templateVersion}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1624,7 +1631,7 @@ scenarios:
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
       advertiserConsentAvailable: 'no'
     };
-    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":undefined,"pageType":undefined,"items": undefined,"v":templateVersion,"customerStatus":"new","source":{"name":"gtm","version":templateVersion},"cp.consentAvailable":0}};
+    const expectedCjData = {"sitePage":{"enterpriseId":1234,"cartSubtotal": undefined,"trackingSource":"gtm","referringChannel":undefined,"pageType":undefined,"items": undefined,"v":templateVersion,"customerStatus":"new","cp.consentAvailable":0},"source":{"name":"gtm","version":templateVersion}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1651,7 +1658,7 @@ scenarios:
       channelName: 'CJ',
       channelTimestamp: '2022-12-31T12:18:14Z'
     };
-    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new", "bypassChannel": {"name": "CJ", "timestamp": "2022-12-31T12:18:14Z"}}};
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new", "bypassChannel": {"name": "CJ", "timestamp": "2022-12-31T12:18:14Z"}},"source":{"name":"gtm","version":templateVersion}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1677,7 +1684,7 @@ scenarios:
       customParameters: [{customFieldName: 'customerStatus', customFieldValue: 'new'}],
       channelName: 'CJ',
     };
-    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"source":{"name":"gtm","version":templateVersion},"customerStatus":"new", "bypassChannel": {"name": "CJ", "timestamp": ""}}};
+    const expectedCjData = {"order":{"enterpriseId":1234,"orderId":"test123","cjeventOrder":"test","actionTrackerId":4567,"currency":"EUR","amount":100,"discount":10,"coupon":"sale10","pointOfSale":"web","trackingSource":"gtm","pageType":"conversionConfirmation","items":[{"itemId":"ABC123","unitPrice":50,"quantity":2,"discount":"0"}],"v":templateVersion,"customerStatus":"new", "bypassChannel": {"name": "CJ", "timestamp": ""}},"source":{"name":"gtm","version":templateVersion}};
 
     // Call runCode to run the template's code.
     runCode(mockData);
@@ -1687,7 +1694,7 @@ scenarios:
 setup: |-
   mock('queryPermission', true);
   mock('getCookieValues', 'test');
-  const templateVersion = '2.4';
+  const templateVersion = '2.4-viv';
 
 
 ___NOTES___
@@ -1696,12 +1703,11 @@ Created on 2/4/2020, 3:07:28 PM
 
 # Changelog
 
-## [v2.4] - 2023-09-13
+## [v2.4-viv] - 2023-10-26
 
 ### Added
 
-+ New source parameter with name and version.
-+ countryCode parameter.
++ source informtion added into the cj object, mirroring the official template.
 
 ### Changed
 
@@ -1709,6 +1715,7 @@ Created on 2/4/2020, 3:07:28 PM
 + Bypass Channel parameters added into separate settings group.
 + Related sections of code grouped into functions.
 + UI improvements for custom parameters.
++ Added "-viv" to template version, to prevent conflicts with official template.
 
 ## [v2.3] - 2023-06-06
 
