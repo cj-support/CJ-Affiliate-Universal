@@ -2,6 +2,12 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
+  - sha: 70b63b8e3f60f466fc6f9e19042512b1d7dcd30d
+    changeNotes: |2
+      Added Consent Signal support (Google Consent Mode and custom consent handling).
+      Refactored sandboxed JS; if multiple cje cookies exist, only the first value is passed to cjeventOrder.
+      Template version 2.2.
+  # Older versions
   - sha: b66ceb8851089cce27c0924c8d9ee40c89eaf918
     changeNotes: |2
       moved reffering channel parameter to customer journey

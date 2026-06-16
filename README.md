@@ -100,6 +100,7 @@ window.dataLayer.push({
 });
 </script>
 ```
+
 #### Standard Tracking Variables
 Create a Data Layer Variable for CJ required (i.e. AMOUNT, ORDERID) and optional values (i.e. COUPON, DISCOUNT) that will need to be dynamic. The Data Layer Variable Name must match what is being passed in the Data Layer on the final confirmation page.
 
@@ -153,3 +154,51 @@ Use this section to add any additional name=value pairs needed to be tracked. Th
 <b>Example Universal Tag Template Addtional Parameters Settings</b>
 
 ![GTM_UniversalTag_AdditionalParameters](https://user-images.githubusercontent.com/55509975/110533462-df228100-80d2-11eb-97f7-9d1566d22f8a.PNG)
+
+
+### Consent Signal
+
+You have an option to enable [Consent Signal](https://docs.cj.com/docs/consent-signal-and-loyalty-exemption), which will allow passing of consent status to CJ's tag. Please refer to the documentation to learn more about the Consent Signal functionality, its behavior and requirements.
+
+#### Google Consent Mode (RECOMMENDED)
+
+In case you are using Google Consent Mode compliant consent management platform (CMP), you can select `Google Consent Mode` option and CJ's tag will automatically read consent status. This is the easiest way to enable Consent Signal, as it does not require any additional configuration.
+
+You can refer to a full list of Google's CMP partners, with Google Consent More integrated, at [cmppartnerprogram.withgoogle.com](https://cmppartnerprogram.withgoogle.com/#partners). If you are using one of these (e.g. OneTrust, Cookiebot, CookieYes, etc.), there is a good change that you will be able to use the Google Consent Mode option.
+
+![Google_Consent_Mode](images/consent_signal-google_consent_mode.png)
+
+##### Steps
+
+1. Edit the tag with `Page Data` data type selected.
+2. Set consent source to `Google Consent Mode`.
+3. Select consent type required for CJ's tag (e.g. ad_storage or analytics_storage).
+4. Make sure that your CMP is configured to update the consent status for the selected consent type.
+
+You do not need to make any other changes to your tags or triggers, as CJ's tag will automatically read the consent status from Google Consent Mode, waiting for any consent updates and behaving accordingly.
+
+#### Other CMP or Custom Consent Dialog
+
+If non-compliant CMP or custom consent dialog is used, you will need to select "Custom" option and make the consent status available via a variable (values: 1 for consent given, 0 for consent not given). In such a scenario, you will need to trigger the tag with `Page Data` data type again, on the consent status update event.
+
+![Custom_Consent](images/consent_signal-custom_consent_mode.png)
+
+##### Steps
+
+1. Edit the tag with `Page Data` data type selected.
+2. Set consent source to `Custom`.
+3. Make the consent status available via a variable (values: 1 for consent given, 0 for consent not given).
+4. Pass the variable with consent status into the Consent Status field. This will ensure that the tag has correct initial consent status when it fires.
+5. Create an additional tag with `Page Data` data type selected, pass the same variable with consent status into the Consent Status field, and trigger it on the consent status update event. This will ensure that any changes to consent status will be passed to CJ's tag. 
+
+In the end you should have 1 tag of `Order Data` type, 1 tag of `Page Data` type triggered on all DOM Ready Events (except for Conversion Confirmation page), and 1 tag of `Page Data` type triggered on consent status update event.
+
+#### Tag's Consent Settings
+
+Once you choose to use Consent Signal and have it enabled and configured on CJ's tags, so the available consent status is being properly passed to the tags, enabling them to reflect the current consent status, you will need to update the tag's consent settings to ensure that the tags will fire without additional restrictions.
+
+![Tag_Consent_Settings](images/tag_consent_settings_with_consent_singnal_turned_on.png)
+
+#### Testing Consent Signal
+
+Following enabling Consent Signal and finalizing the settings, please make sure to test the implementation in Preview mode, to ensure compliant behavior **before** publishing the changes.
