@@ -2,7 +2,7 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
-  - sha: 70b63b8e3f60f466fc6f9e19042512b1d7dcd30d
+  - sha: 3daff9b00ee0a1265f14d8545f439317a6caab0f
     changeNotes: |2
       Added Consent Signal support (Google Consent Mode and custom consent handling).
       Refactored sandboxed JS; if multiple cje cookies exist, only the first value is passed to cjeventOrder.
