@@ -2,12 +2,16 @@ homepage: "https://www.cj.com/"
 documentation: "https://www.cj.com/"
 versions:
   # Latest version
+  - sha: 837b18ff84719d823cc969af4a135ad3f6ac37b3
+    changeNotes: |2
+      Added additional vertical parameters for client support.
+      Including, pickupId/DropoffId
+  # Older versions
   - sha: 3daff9b00ee0a1265f14d8545f439317a6caab0f
     changeNotes: |2
       Added Consent Signal support (Google Consent Mode and custom consent handling).
       Refactored sandboxed JS; if multiple cje cookies exist, only the first value is passed to cjeventOrder.
       Template version 2.2.
-  # Older versions
   - sha: b66ceb8851089cce27c0924c8d9ee40c89eaf918
     changeNotes: |2
       moved reffering channel parameter to customer journey
