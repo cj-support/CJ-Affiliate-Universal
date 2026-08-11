@@ -529,6 +529,10 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Destination Location ID"
               },
               {
+                "value": "dropoffId",
+                "displayValue": "Drop-Off ID"
+              },
+              {
                 "value": "duration",
                 "displayValue": "Duration"
               },
@@ -695,6 +699,10 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "port",
                 "displayValue": "Port"
+              },
+              {
+                "value": "pickupId",
+                "displayValue": "Pickup ID"
               },
               {
                 "value": "pre_qual",
